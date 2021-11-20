@@ -1,0 +1,51 @@
+{% extends 'core/base.html' %}
+
+{% block tittle %}Agregar Cliente{% endblock tittle%}
+
+{% block content %}
+
+    {% include 'navegacion/nav.html'%}
+
+    <center>
+        {% if submitted %}
+            <h1>cliente guardado con exito!</h1>
+
+            <a href="{% url 'crear-cliente' %}" class="btn btn-outline-success">Agregar otro Cliente</a>
+
+        {% else %}
+            <h1>Agregar Cliente</h1>
+
+
+            <form action="" method=POST>
+                {% csrf_token %}
+                
+                {{form.as_p}}
+
+                <input type="submit" value="Agregar" class="btn btn-outline-secondary">
+
+            </form>
+
+        {% endif %}
+
+   
+
+        
+    </center>
+
+
+
+{% endblock content %}
+
+
+
+
+     {% comment %} {%if up %}
+            <form action="" method=POST>
+                {% csrf_token %}
+                
+                {{form.as_p}}
+
+                <input type="submit" value="Submit" class="btn btn-outline-secondary">
+
+            </form>
+        {% endif %} {% endcomment %}

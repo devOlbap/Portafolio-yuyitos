@@ -3,10 +3,18 @@ from django.db import models
 #serializers
 from rest_framework import serializers
 
-from core.model.base import Base
 
 
-class Cliente(Base):
+class Cliente(models.Model):
+
+    rut = models.CharField(max_length=15,
+                            blank=False,
+                            null=False,
+                            verbose_name="RUT")
+    rut_dv = models.CharField(max_length=1,
+                                blank=False,
+                                null=False,
+                                verbose_name="Digito Verificador")
 
     nombres = models.CharField(max_length=120,
                                 blank=False,
@@ -20,7 +28,7 @@ class Cliente(Base):
                                 blank=False,
                                 null=False,
                                 verbose_name="Apellido Materno")
-    telefono = models.IntegerField(max_length=9,
+    telefono = models.IntegerField(
                                 blank=False,
                                 null=False,
                                 verbose_name="Teléfono Móvil")
@@ -52,12 +60,6 @@ class Cliente(Base):
         if not self.direccion:
             error.append("La dirección es obligatoria")
 
-        if len(str(self.cod_ensenianza))>4:
-            error.append("El codigo '"+self.cod_ensenianza+"' es demasiado largo ("+str(len(self.cod_ensenianza))+" caracteres )")
-
-        if len(str(self.desc_ensenianza))>100:
-            error.append("la descripcion '"+self.desc_ensenianza+"' es demasiado largo ("+str(len(self.desc_ensenianza))+" caracteres )")
-
         return error
 
 class ClienteSerializer(serializers.ModelSerializer):
@@ -65,6 +67,8 @@ class ClienteSerializer(serializers.ModelSerializer):
         model = Cliente
         fields = (
             'id',
+            'rut',
+            'rut_dv',
             'nombres',
             'paterno',
             'materno',

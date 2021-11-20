@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block tittle %}Agregar Proveedor{% endblock tittle%}
+
+{% block content %}
+
+    {% include 'navegacion/navProd.html'%}
+
+    <center>
+        {% if submitted %}
+            <h1>Proveedor guardado con exito!</h1>
+
+            <a href="{% url 'addProveedor' %}" class="btn btn-outline-success">Agregar otro Proveedor</a>
+
+        {% else %}
+            <h1>Agregar Proveedor</h1>
+
+
+            <form action="" method=POST>
+                {% csrf_token %}
+                
+                {{form.as_p}}
+
+                <input type="submit" value="Agregar" class="btn btn-outline-secondary">
+
+            </form>
+
+        {% endif %}
+
+   
+
+        
+    </center>
+
+
+
+{% endblock content %}
+

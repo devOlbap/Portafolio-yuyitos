@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light ">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="{% url 'listProductos'%}">Productos</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'listProductos'%}">Lista de Productos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'addProducto' %}">Crear Producto</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'listProveedor'%}">Lista de Proveedores</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'addProveedor'%}">Agregar Proveedor</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'listPedidos'%}">Lista de Pedidos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link " href="{% url 'addPedido' %}">Agregar Pedido</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">Disabled</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

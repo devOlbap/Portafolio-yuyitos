@@ -16,12 +16,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
+
+from PRODUCTOS.urls import producto_url
 from CLIENTES.urls import cliente_url
 from core.urls import core_urls
+
 
 
 urlpatterns = [
     path('', include(core_urls)),
     path('admin/', admin.site.urls),
     path('clientes/', include(cliente_url)),
+    path('productos/',include(producto_url)),
 ]

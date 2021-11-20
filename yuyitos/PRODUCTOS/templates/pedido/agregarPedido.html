@@ -1,0 +1,38 @@
+{% extends 'core/base.html' %}
+
+{% block tittle %}Agregar Pedido{% endblock tittle%}
+
+{% block content %}
+
+    {% include 'navegacion/navProd.html'%}
+
+    <center>
+        {% if submitted %}
+            <h1>Pedido guardado con exito!</h1>
+
+            <a href="{% url '' %}" class="btn btn-outline-success">Agregar otro Pedido</a>
+
+        {% else %}
+            <h1>Agregar Pedido</h1>
+
+
+            <form action="" method=POST>
+                {% csrf_token %}
+                
+                {{form.as_p}}
+
+                <input type="submit" value="Agregar" class="btn btn-outline-success">
+
+            </form>
+
+        {% endif %}
+
+   
+
+        
+    </center>
+
+
+
+{% endblock content %}
+

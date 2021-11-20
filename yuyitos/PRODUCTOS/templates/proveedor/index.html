@@ -1,0 +1,57 @@
+{% extends 'core/base.html' %}
+
+{% block tittle %}Proveedores{% endblock tittle%}
+
+
+{% block content %}
+
+    {% include 'navegacion/navProd.html'%}
+
+
+    <div class="">
+        <!-- aqui estamos importando estilos propios de css -->
+        <h1 class="titulo">Lista de Proveedores</h1>
+    </div>
+
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Rut</th>
+                <th scope="col">Empresa</th>
+                <th scope="col">Giro</th>
+                <th scope="col">Rubro</th>
+                <th scope="col">Telefono</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Representante</th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for proveedor in proveedores %}
+                <tr>
+                    <th scope="row">{{proveedor.id}}</th>
+                    <td>{{proveedor.rut}}-{{proveedor.dv}}</td>
+                    <td>{{proveedor.razon_social}}</td>
+                    <td>{{proveedor.giro}}</td>
+                    <td>{{proveedor.rubro}}</td>
+                    <td>{{proveedor.telefono}}</td>
+                    <td>{{proveedor.correo}}</td>
+                    <td>{{proveedor.nom_representante}}</td>
+
+                    <td><a class="btn btn-outline-success" href="{% url 'updateProveedor' proveedor.id %}">Editar</a></td>
+                    <td><a id="btnDelete" class="btn btn-outline-danger" href="{% url 'deleteProveedor' proveedor.pk %}">Eliminar</a></td>
+
+                </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+
+    
+
+
+{% endblock content %}

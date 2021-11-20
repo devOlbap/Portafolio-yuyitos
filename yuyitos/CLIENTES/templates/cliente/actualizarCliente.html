@@ -1,0 +1,29 @@
+{% extends 'core/base.html' %}
+
+{% block tittle %}Actualizar Cliente{% endblock tittle%}
+
+{% block content %}
+
+    {% include 'navegacion/nav.html'%}
+
+    <center>
+        <h1>Actualizar Cliente</h1>
+       
+
+        <form action="" method=POST>
+            {% csrf_token %}
+            
+            {{form.as_p}}
+
+            <input type="submit" value="Actualizar" class="btn btn-outline-success">
+
+        </form>
+        
+   
+
+        
+    </center>
+
+
+
+{% endblock content %}

@@ -17,8 +17,8 @@ from django.urls import path
 
 from core.views import IndexPageView
 
-core_urls = ([
+core_urls = [
     path('', IndexPageView.as_view(), name="home"),
 
 
-],'core')
+]

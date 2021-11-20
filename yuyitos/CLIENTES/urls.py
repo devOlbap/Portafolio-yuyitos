@@ -15,10 +15,20 @@ Including another URLconf
 """
 from django.urls import path
 
-from CLIENTES.views import *
+from CLIENTES.view.cliente import IndexPageView as list_clientes
+from CLIENTES.view.cliente import AddCliente as add_cliente
+from CLIENTES.view.cliente import updateCliente 
+from CLIENTES.view.cliente import deleteCliente 
 
-cliente_url = ([
-    path('', list_clientes_view.as_view(), name="listClientes"),
-    path('<int:pk>/', detalle_cliente_view.as_view(), name="detalleCliente"),
 
-],'cliente')
+
+cliente_url = [
+    path('', list_clientes.as_view(), name="listClientes"),
+    path('add', add_cliente.as_view(), name="crear-cliente"),
+    path('update/<int:pk>', updateCliente, name="actualizarCliente"),
+    path('delete/<int:pk>', deleteCliente, name="eliminarCliente"),
+
+    #path(''),
+
+    #
+]

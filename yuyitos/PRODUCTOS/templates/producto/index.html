@@ -1,0 +1,63 @@
+{% extends 'core/base.html' %}
+
+{% block tittle %}Productos{% endblock tittle%}
+
+
+{% block content %}
+
+    {% include 'navegacion/navProd.html'%}
+
+
+    <div class="">
+        <!-- aqui estamos importando estilos propios de css -->
+        <h1 class="titulo">Lista de Productos</h1>
+    </div>
+
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">SKU</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Precio Venta</th>
+                <th scope="col">Stock</th>
+                <th scope="col">Stock Critico</th>
+                <th scope="col">Categoria</th>
+                <th scope="col">Tipo</th>
+                <th scope="col">Proveedor</th>
+                <th scope="col">Editar</th>
+                <th scope="col">Eliminar</th>
+
+
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+                <tr>
+                    <th scope="row">{{producto.id}}</th>
+                    <td>{{producto.sku}}</td>
+                    <td>{{producto.descripcion}}</td>
+                    <td>${{producto.precio_venta}}</td>
+                    <td>{{producto.stock}}</td>
+                    <td>{{producto.stock_critico}}</td>
+                    <td>{{producto.categoria.nom_categoria}}</td>
+                    <td>{{producto.tipo_producto.descripcion}}</td>
+                    <td>{{producto.proveedor.nom_representante}}</td>
+
+
+                   
+                    <td><a class="btn btn-outline-success" href="{% url 'updateProducto' producto.id %}">Editar</a></td>
+                    <td><a id="btnDelete" class="btn btn-outline-danger" href="{% url 'deleteProducto' producto.id%}">Eliminar</a></td>
+
+                </tr>
+            {% endfor %}
+            
+        </tbody>
+    </table>
+
+    
+
+
+{% endblock content %}

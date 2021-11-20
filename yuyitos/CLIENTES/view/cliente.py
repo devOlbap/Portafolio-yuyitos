@@ -1,51 +1,78 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from rest_framework.views import APIView
+from django.http import HttpResponseRedirect
 
+from CLIENTES.model.cliente import Cliente 
 
-from django.http import HttpResponse, JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework.parsers import JSONParser
+from CLIENTES.form import ClienteForm
 
-from rest_framework import status
-from rest_framework.response import Response
-
-#models
-from CLIENTES.model.cliente import Cliente
-from CLIENTES.model.cliente import ClienteSerializer
-
-class IndexPageView(APIView):
+from django.views import View
 
 
-    def get(self, request, *args, **kwargs):
-        try:
-            cli = Cliente.objects.all()
-            serial = ClienteSerializer(cli, many=True)
+class IndexPageView(View):
+    template_name = "cliente/index.html"
 
-        except Exception as ex:
-            print(str(ex), ': error try get toda las solicitudes')
+    def get(self, request):
+        
+        
+        clientes = Cliente.objects.all()
 
-        return JsonResponse(serial.data, safe=False)
+        data={
+            'clientes':clientes
+        }
+
+        return render(request, self.template_name, data)
+
+class AddCliente(View):
+
+    template_name = "cliente/agregarCliente.html"
+
+    def get(self, request):
+
+        form = ClienteForm
+
+        if 'submitted' in request.GET:
+            submitted = True
+        else:
+            submitted = False
+
+        return render(request, self.template_name, {'form':form, 'submitted':submitted})
+
+    def post(self, request):
+        
+        submitted = False
+
+        form = ClienteForm(request.POST)
+
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/clientes/add?submitted=True')
+
+        return render(request, self.template_name, {'submitted':submitted})
+
+
+def updateCliente(request, *args, **kwargs):
     
-    def post(self, request,*args, **kwargs):
+    template_name ='cliente/actualizarCliente.html'
 
-        seriaCli = ClienteSerializer(data= request.data)
-        if seriaCli.is_valid():
-            seriaCli.save()
-            return Response(seriaCli.data, status=status.HTTP_201_CREATED)
-        return Response(seriaCli.errors, status=status.HTTP_400_BAD_REQUEST)
+    cliente = Cliente.objects.get(pk = kwargs['pk'])
+    form_cliente = ClienteForm(request.POST or None, instance=cliente)
 
-class ClienteView(APIView):
+    if form_cliente.is_valid():
+        form_cliente.save()
+        return redirect('listClientes')
 
-    def get(self,request, *args, **kwargs):
-        
-        try:
-            cliente = Cliente.objects.get(pk=self.kwargs['pk'])
-        
-        except Exception as ex:
-            print(str(ex), 'try_:_:')
-        
-        serialCliente = ClienteSerializer(cliente)
+    return render(request, template_name, {'cliente': cliente, 'form':form_cliente})
 
-        return JsonResponse(serialCliente.data)
-    
+def deleteCliente(request,*args, **kwargs):
+
+    cliente_del = Cliente.objects.get(pk = kwargs['pk'])
+
+    cliente_del.delete()
+
+
+    return redirect('listClientes')
+
+
+
+
